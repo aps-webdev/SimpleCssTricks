@@ -1,0 +1,103 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+/*
+Always centering your div
+*/
+.parent {
+  display: grid;
+  place-items: center;
+  height: 25%;
+  background-color: aliceblue;
+}
+
+/*
+use flex shorthand for making you container
+to grow or shrink with or without base size
+*/
+.parentBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+.childBox {
+  border: 1px solid red;
+  background-color: blueviolet;
+  text-align: center;
+  /*
+  syntax brief  
+  flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+  or can use with as used below
+  flex: <'flex-grow'> <'flex-shrink'> <'flex-basis'>
+  */
+  flex: 0 1 200px; /* without stretch */
+  flex: 1 1 200px; /* with stretch */
+}
+
+/*
+Simple way to create a sidebar with minimum size
+of 100px(the size will not minimize less than 100px)
+and will stretch 25% on larger view,
+use minmax() which works great with grids handeling
+*/
+.parentContainer {
+  display: grid;
+  /*
+  syntax brief for minmax()
+    minmax( [ <length> | <percentage> | min-content | max-content | auto ] , 
+           [ <length> | <percentage> | min-content | max-content | auto | <flex> ] )
+    minmax(min-value, max-value)
+  */
+  grid-template-columns: minmax(100px, 25%) auto;
+}
+.sideBar {
+  height: 100vh; /* vh stands for viewport height,
+                    100vh means will take full height of your current viewport */
+  background-color: cornflowerblue;
+}
+.mainContent {
+  background-color: darkgreen;
+}
+
+/*
+use repeat function instead of writting values again and again
+ex. grid-template-column: repeat(10,1fr) instead of,
+grid-template-column: 1fr.........1fr (writting 1fr 10 times)
+grid-template-column: repeat(10,1fr) // this will create 10 column with 1fr column size
+*/
+
+/*
+do give a try for repeat function like this,
+resize your window size and see the magic
+*/
+.parentWrap {
+  height: 250px;
+  display: grid;
+  grid-gap: 1rem;
+  /*use this */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  /* then comment above grid-template-columns line and try this */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+}
+.childWrap {
+  display: grid;
+  place-items: center;
+  background-color: #c9cbff;
+}
+
+/*
+use clamp(<min> value <max>) to set size,
+always do check the browser support
+*/
+.checkClamp {
+  /*
+  here the width wants to be 50% but cannot exceed 50ch
+  and cannot be less than 25ch
+  can use clamp for font-size too for better responsive experience
+  */
+  /* here ch is character unit i.e. 25ch = 25 characters */
+  width: clamp(25ch, 50%, 50ch);
+  background-color: chocolate;
+}
